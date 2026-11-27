@@ -1,0 +1,34 @@
+baseURL = "https://example.org/"
+title = "Ada Example"
+locale = "en-US"
+theme = "meh-theme"
+themesDir = "../.."
+
+# Keep the example small: no tag/category pages.
+disableKinds = ["taxonomy", "term"]
+
+[pagination]
+  pagerSize = 10
+
+[params]
+  description = "Example site for the meh Hugo theme."
+  # Optional: heading of the list of posts on the home page (default "writing").
+  writingHeading = "writing"
+  # Optional: Go time layout for post dates (default "Jan 2, 2006").
+  dateFormat = "Jan 2, 2006"
+  # Optional: set to true to use system fonts instead of Google Fonts.
+  disableGoogleFonts = false
+  # Optional: preformatted text shown below the list of posts.
+  footerCode = '''
+++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.
+'''
+
+  [params.author]
+    name = "Ada Example"
+    email = "ada@example.org"
+    github = "example"
+
+# A light highlighting style whose colours meet WCAG AA contrast on white.
+# (Hugo's default, monokai, has low-contrast comments.)
+[markup.highlight]
+  style = "github"

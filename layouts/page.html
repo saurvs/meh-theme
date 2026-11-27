@@ -1,0 +1,13 @@
+{{ define "main" }}
+<article class="row">
+    <div class="six columns meh-article">
+        <h1 class="meh-title">{{ .Title }}</h1>
+        {{ .Content }}
+        <hr>
+        <footer>
+            <pre><code>{{ if not .Date.IsZero }}posted on <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (site.Params.dateFormat | default "Jan 2, 2006") }}</time> {{ end }}by <a href="{{ "/" | relLangURL }}">{{ site.Params.author.name | default site.Title }}</a></code></pre>
+        </footer>
+        <hr class="meh-spacer">
+    </div>
+</article>
+{{ end }}

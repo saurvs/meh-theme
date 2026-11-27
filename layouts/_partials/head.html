@@ -1,0 +1,25 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+    {{- with .Description | default site.Params.description }}
+    <meta name="description" content="{{ . }}">
+    {{- end }}
+    <meta name="theme-color" content="{{ site.Params.themeColor | default "#252525" }}">
+    {{ hugo.Generator }}
+    <link rel="canonical" href="{{ .Permalink }}">
+    {{- with .OutputFormats.Get "rss" }}
+    {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+    {{- end }}
+    {{- if not site.Params.disableGoogleFonts }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Raleway:wght@100&family=Roboto+Mono:wght@100;300;400&display=swap">
+    {{- end }}
+    <link rel="stylesheet" href="{{ "css/normalize.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "css/skeleton.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "css/meh.css" | relURL }}">
+    {{- if templates.Exists "_partials/head-extra.html" }}
+    {{ partial "head-extra.html" . }}
+    {{- end }}
+</head>

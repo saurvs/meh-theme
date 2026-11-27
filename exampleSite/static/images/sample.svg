@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200" role="img" aria-label="A grey square">
+  <rect width="400" height="200" fill="#e1e1e1"/>
+  <text x="200" y="108" font-family="monospace" font-size="20" text-anchor="middle" fill="#222">400 × 200</text>
+</svg>

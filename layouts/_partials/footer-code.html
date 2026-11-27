@@ -1,0 +1,4 @@
+{{- with site.Params.footerCode }}
+<hr>
+<pre tabindex="0"><code>{{ . | htmlEscape | safeHTML }}</code></pre>
+{{- end }}

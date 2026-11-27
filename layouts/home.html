@@ -1,0 +1,29 @@
+{{ define "main" }}
+<header class="row">
+    <div class="one-half column meh-masthead">
+        <h1>{{ site.Title }}</h1>
+        {{- with site.Params.author }}
+        {{- if or .github .email }}
+        <pre><code>{ {{ with .github }}code: <a href="https://github.com/{{ . }}" title="GitHub">github</a>{{ end }}{{ if and .github .email }}, {{ end }}{{ with .email }}contact: <a href="mailto:{{ . }}" title="Email">email</a>{{ end }} }</code></pre>
+        {{- end }}
+        {{- end }}
+    </div>
+</header>
+{{- with .Content }}
+<section class="row">
+    <div class="one-half column meh-section">
+        {{ . }}
+    </div>
+</section>
+{{- end }}
+{{- $pages := where site.RegularPages "Section" "in" site.MainSections }}
+{{- if $pages }}
+<section class="row">
+    <div class="one-half column meh-section">
+        <h2>{{ site.Params.writingHeading | default "writing" }}</h2>
+        {{ partial "page-list.html" $pages }}
+        {{- partial "footer-code.html" . }}
+    </div>
+</section>
+{{- end }}
+{{ end }}

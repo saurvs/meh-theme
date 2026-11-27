@@ -37,16 +37,26 @@ a:focus-visible {
   .meh-title { font-size: 4.2rem; }
   .meh-section h2 { font-size: 3.6rem; } }
 
-/* Long code lines scroll inside the <pre> (Hugo gives highlighted blocks
-   tabindex="0" so they are keyboard scrollable) instead of overflowing. */
+/* Spacing between the sections of content/_index.md, as when each was its
+   own row. */
+.meh-section > h2:not(:first-child) {
+  margin-top: 5rem; }
+
+/* Code blocks: the <pre> is the bordered box and scrolls long lines (Hugo
+   gives highlighted blocks tabindex="0" so they are keyboard scrollable), so
+   the box never overflows the column and its border stays visible. */
 pre {
-  overflow-x: auto; }
+  overflow-x: auto;
+  padding: 1rem 1.5rem;
+  border: 1px solid #E1E1E1;
+  border-radius: 4px; }
 pre > code {
+  display: block;
   margin: 0;
-  overflow: visible;
-  width: max-content;
-  min-width: 100%;
-  box-sizing: border-box; }
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  overflow: visible; }
 
 /* Skeleton (as customised here) removes list bullets, which suits the home
    page lists; bring them back inside articles. */

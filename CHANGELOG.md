@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1 (2026-11-27)
+
+- Code blocks: the `<pre>` is now the bordered box and does the scrolling, so
+  a block with long lines no longer loses its right border.
+- More space between the `##` sections of `content/_index.md` on the home
+  page, matching the spacing of the 2017 layout.
+
 ## 1.0.0 (2026-11-27)
 
 First tagged release; the theme was rewritten for current Hugo.

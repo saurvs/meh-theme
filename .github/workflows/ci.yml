@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  schedule:
+    # Weekly, so new Hugo deprecations are caught even without commits.
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: exampleSite (Hugo ${{ matrix.hugo }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The minimum version from theme.toml and the latest release.
+        hugo: ["0.158.0", "latest"]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # exampleSite/hugo.toml uses theme = "meh-theme" and themesDir = "../..".
+          path: meh-theme
+
+      - name: Install Hugo
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HUGO_VERSION: ${{ matrix.hugo }}
+        run: |
+          set -euo pipefail
+          if [ "$HUGO_VERSION" = latest ]; then
+            HUGO_VERSION=$(gh release view --repo gohugoio/hugo --json tagName --jq .tagName)
+            HUGO_VERSION=${HUGO_VERSION#v}
+          fi
+          base="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}"
+          tarball="hugo_${HUGO_VERSION}_linux-amd64.tar.gz"
+          cd "$RUNNER_TEMP"
+          curl -fsSLO "$base/$tarball"
+          curl -fsSL "$base/hugo_${HUGO_VERSION}_checksums.txt" | grep " ${tarball}\$" | sha256sum -c -
+          tar -xzf "$tarball" hugo
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+
+      - name: Build exampleSite (fail on warnings and deprecations)
+        working-directory: meh-theme/exampleSite
+        run: |
+          set -euo pipefail
+          hugo version
+          hugo --panicOnWarning --printPathWarnings --printI18nWarnings --printUnusedTemplates \
+            --logLevel info --destination "$RUNNER_TEMP/public" 2>&1 | tee "$RUNNER_TEMP/build.log"
+          # Recent deprecations are only logged at INFO level; fail on those too.
+          if grep -Ei 'deprecated|^WARN' "$RUNNER_TEMP/build.log"; then
+            echo "::error::Hugo reported warnings or deprecations"
+            exit 1
+          fi
+
+      - name: Check the output
+        working-directory: ${{ runner.temp }}/public
+        run: |
+          set -euo pipefail
+          for f in index.html 404.html post/hello-world/index.html post/index.html page/about/index.html index.xml sitemap.xml; do
+            test -s "$f" || { echo "::error::missing $f"; exit 1; }
+          done
+          grep -q '<html lang="en-US">' index.html
+          grep -q '<meta name="viewport"' index.html
+          grep -q 'href="/post/hello-world/"' index.html
+          grep -q '<time datetime="2017-02-02">Feb 2, 2017</time>' post/hello-world/index.html
+          grep -q 'alt="A grey square used as a sample image"' post/markdown-sampler/index.html
+          ! grep -rl 'http://' --include='*.html' . || { echo "::error::insecure http:// URL in output"; exit 1; }

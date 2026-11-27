@@ -1,6 +1,6 @@
 # meh
 
-[![CI](https://github.com/saurvs/meh-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/saurvs/meh-theme/actions/workflows/ci.yml)
+[![CI](https://github.com/sauravsc/meh-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/sauravsc/meh-theme/actions/workflows/ci.yml)
 
 A minimal, monospace-flavoured personal homepage and blog theme for
 [Hugo](https://gohugo.io/), built on [Skeleton](https://github.com/dhg/Skeleton).
@@ -23,7 +23,7 @@ release, and fails on any warning or deprecation notice.
 As a Git submodule:
 
 ```sh
-git submodule add https://github.com/saurvs/meh-theme.git themes/meh-theme
+git submodule add https://github.com/sauravsc/meh-theme.git themes/meh-theme
 ```
 
 Then set `theme = "meh-theme"` in your `hugo.toml`. (Or clone it into
@@ -79,7 +79,7 @@ Create `layouts/_partials/head-extra.html` in your site to add anything to
 ## Example site and screenshots
 
 ```sh
-git clone https://github.com/saurvs/meh-theme.git
+git clone https://github.com/sauravsc/meh-theme.git
 cd meh-theme/exampleSite
 hugo server --themesDir ../..
 ```

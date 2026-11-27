@@ -1,10 +1,10 @@
 name = "meh"
 description = "A minimal, monospace-flavoured personal homepage and blog theme built on Skeleton."
-homepage = "https://github.com/saurvs/meh-theme"
+homepage = "https://github.com/sauravsc/meh-theme"
 tags = ["blog", "personal", "minimal", "simple", "responsive", "skeleton"]
 features = ["blog", "rss", "pagination", "responsive"]
 min_version = "0.158.0"
 
 [author]
   name = "Saurav Sachidanand"
-  homepage = "https://saurvs.github.io/"
+  homepage = "https://sauravsc.github.io/"

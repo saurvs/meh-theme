@@ -1,0 +1,6 @@
+{{- /* Renders a list of pages. Context: a page collection. */ -}}
+<ul>
+    {{- range . }}
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{- end }}
+</ul>

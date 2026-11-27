@@ -1,0 +1,13 @@
+{{ define "main" }}
+<section class="row">
+    <div class="one-half column meh-masthead">
+        <h1 class="meh-title">{{ .Title }}</h1>
+        {{ .Content }}
+        {{- $paginator := .Paginate .Pages }}
+        {{ partial "page-list.html" $paginator.Pages }}
+        {{- partial "pagination.html" . }}
+        <hr>
+        <pre><code><a href="{{ "/" | relLangURL }}">{{ site.Title }}</a></code></pre>
+    </div>
+</section>
+{{ end }}

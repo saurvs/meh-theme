@@ -1,0 +1,9 @@
+{{ define "main" }}
+<section class="row">
+    <div class="one-half column meh-masthead">
+        <h1>404</h1>
+        <p>{{ site.Params.notFoundText | default "There is nothing here." }}</p>
+        <pre><code><a href="{{ "/" | relLangURL }}">{{ site.Title }}</a></code></pre>
+    </div>
+</section>
+{{ end }}
